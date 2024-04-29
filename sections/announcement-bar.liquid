@@ -1,27 +1,87 @@
-<div class="ab px-[40px] border-b md:flex items-center hidden">
-  <div class="md:w-1/2 text-center md:text-start text-[#444] text-[14px] py-[10px]">
-    <p>We are open with limited hours and staff.</p>
+<div class="ab px-[40px] border-b md:flex items-center hidden bg-[{{ section.settings.bg_color }}]">
+  <div class="md:w-1/2 text-center md:text-start text-[14px] py-[10px]">
+    <p class="text-[{{ section.settings.text_color }}] hover:text-[{{ section.settings.text_hover_color }}] transition-all duration-500">
+      {{ section.settings.ab_text }}
+    </p>
   </div>
   <div class="w-1/2 text-[13px] font-medium ab_action">
     <ul class="flex gap-3 justify-end relative">
-      <li class="border-r pr-4 currency_switcher">
+      <li class="border-r pr-4 currency_switcher text-[{{ section.settings.text_color }}] hover:text-[{{ section.settings.text_hover_color }}] transition-all duration-500">
         USD
         <i class="fa-solid fa-chevron-down relative top-[-1px] ml-1"></i>
         <ul class="currency_list absolute w-[200px] bg-white px-4 py-5 rounded-md font-semibold">
-          <li class="mb-2 text-[#444] hover:text-[#e52e06] transition-all duration-500">USD - Doller</li>
-          <li class="mb-2 text-[#444] hover:text-[#e52e06] transition-all duration-500">USD - Doller</li>
-          <li class="mb-2 text-[#444] hover:text-[#e52e06] transition-all duration-500">USD - Doller</li>
+          <li class="mb-2 text-[{{ section.settings.text_color }}] hover:text-[{{ section.settings.text_hover_color }}] transition-all duration-500">
+            USD - Doller
+          </li>
+          <li class="mb-2 text-[{{ section.settings.text_color }}] hover:text-[{{ section.settings.text_hover_color }}] transition-all duration-500">
+            USD - Doller
+          </li>
+          <li class="mb-2 text-[{{ section.settings.text_color }}] hover:text-[{{ section.settings.text_hover_color }}] transition-all duration-500">
+            USD - Doller
+          </li>
         </ul>
       </li>
-      <li class="border-r pr-4">
-        <a href="https://www.google.com/maps">
+      <li class="border-r pr-4 text-[{{ section.settings.text_color }}] hover:text-[{{ section.settings.text_hover_color }}] transition-all duration-500">
+        <a target="_blank" href="https://{{ section.settings.map }}">
           <i class="fa-solid fa-location-arrow mr-1"></i>
           Store location</a
         >
       </li>
-      <li class="">
-        <a href="tel:+"> <i class="fa-solid fa-phone-volume mr-1"></i> (08)123 456 7890</a>
+      <li class=" text-[{{ section.settings.text_color }}] hover:text-[{{ section.settings.text_hover_color }}] transition-all duration-500">
+        <a href="tel:+{{ section.settings.phone }}">
+          <i class="fa-solid fa-phone-volume mr-1"></i> {{ section.settings.phone -}}
+        </a>
       </li>
     </ul>
   </div>
 </div>
+
+{% schema %}
+{
+  "name": "Announcements Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ab_text",
+      "label": "Announcement bar text",
+      "info": "Type your announcement",
+      "default": "We are open with limited hours and staff."
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Store Contact No.",
+      "info": "Type your store contact no.",
+      "default": "88 019 8726 8375"
+    },
+    {
+      "type": "text",
+      "id": "map",
+      "label": "Store Location",
+      "info": "Peast your store map link start with https",
+      "default": "maps.google.com"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "info": "Pick text color (Default - #444444)",
+      "default": "#444444"
+    },
+    {
+      "type": "color",
+      "id": "text_hover_color",
+      "label": "Text Hover Color",
+      "info": "Pick text hover color (Default - #e52e06)",
+      "default": "#e52e06"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Backgroud Color",
+      "info": "Pick backgroud color (Default - #ffffff)",
+      "default": "#ffffff"
+    }
+  ]
+}
+{% endschema %}
