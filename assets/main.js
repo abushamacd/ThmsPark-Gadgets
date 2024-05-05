@@ -44,14 +44,14 @@ dropdownTriggers.forEach((trigger) => {
 // scroll
 window.addEventListener("scroll", () => {
   const header = document.getElementById("myHeader");
-  const content = document.getElementById("myContent");
+  const content = document.getElementById("MainContent");
   const sticky = header.offsetTop;
 
   if (window.scrollY > sticky) {
-    header.classList.add("sticky");
+    header.classList.add("header_sticky");
     content.classList.add("sticky-header");
   } else {
-    header.classList.remove("sticky");
+    header.classList.remove("header_sticky");
     content.classList.remove("sticky-header");
   }
 });

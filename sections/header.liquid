@@ -6,7 +6,7 @@
           height="auto"
           width="auto"
           class="max-w-[150px]"
-          src="{{section.settings.logo | img_url: 'medium'}}"
+          src="{{section.settings.logo | image_url: 'medium'}}"
           alt="logo"
         >
       {% else %}
@@ -66,8 +66,16 @@
         </span>
       </a>
     </div>
-    <div class="account">
-      <a href="/account/login">
+    <div class="user">
+      <a
+        href="
+          {% if customer %}
+            /account
+          {% else %}
+            /account/login
+          {% endif %}
+        "
+      >
         <i class="fa-regular fa-user text-[#444] hover:text-[#e52e06] duration-300 text-[22px]"></i>
       </a>
     </div>
