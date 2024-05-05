@@ -1,5 +1,5 @@
 * {
-  font-family: "Libre Franklin", sans-serif;
+  font-family: 'Libre Franklin', sans-serif;
   letter-spacing: 0.3px;
 }
 
@@ -10,7 +10,7 @@
   visibility: hidden;
   opacity: 0;
   top: 50px;
-  max-height: 200px;
+  height: auto;
   overflow-y: auto;
 }
 
@@ -53,6 +53,11 @@
 
 .dropdown_item {
   line-height: 22px;
+}
+
+.mainmenu li.child-active,
+.mainmenu li.active {
+  color: #e52e06;
 }
 
 /* serach */

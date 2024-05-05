@@ -1,6 +1,6 @@
 <header id="myHeader" class="header bg-white md:px-[40px] px-[20px] md:py-0 p-4 flex justify-between items-center">
   <div class="w-2/12 header_left">
-    <a href="" class="logo">
+    <a href="/" class="logo">
       {% if section.settings.logo %}
         <img
           height="auto"
@@ -17,50 +17,35 @@
   <div class="w-8/12 hidden md:block ">
     <nav class="mainmenu">
       <ul class="flex justify-center gap-5 relative">
-        <li class="menu_item text-[15px] font-medium text-[#444] hover:text-[#e52e06] duration-300">
-          <a href="" class="">Home</a>
-        </li>
-        <li class="menu_item text-[15px] font-medium text-[#444] hover:text-[#e52e06] duration-300 ">
-          <a href="" class=""
-            >Collection<i
-              class="fa-solid fa-chevron-down text-[10px] ml-1 relative top-[-2px] font-bold"
-            ></i
-          ></a>
-          <ul class="dropdown rounded-b bg-[#ffffff] px-5 py-6 absolute min-w-[200px]">
-            <li
-              class="dropdown_item text-[15px] font-medium text-[#777] hover:text-[#e52e06] duration-300 mb-3"
-            >
-              <a href="">Item 1</a>
+        {% for link in linklists['main-menu'].links %}
+          {% if link.links != blank %}
+            <li class="menu_item text-[15px] font-medium text-[#444] hover:text-[#e52e06] duration-300 {% if link.active %}active {% endif %} {% if link.child_active %}child-active{% endif %}">
+              <a
+                href="{{ link.url }}"
+              >
+                {{- link.title -}}
+                <i class="fa-solid fa-chevron-down text-[10px] ml-1 relative top-[-2px] font-bold"></i>
+              </a>
+              <ul class="dropdown rounded-b bg-[#ffffff] px-5 py-6 absolute min-w-[200px]">
+                {% for child_link in link.links %}
+                  <li class="dropdown_item text-[15px] font-medium text-[#777] hover:text-[#e52e06] duration-300 mb-3 {% if child_link.active %}active {% endif %}">
+                    <a href="{{child_link.url}}">{{ child_link.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
             </li>
+          {% else %}
             <li
-              class="dropdown_item text-[15px] font-medium text-[#777] hover:text-[#e52e06] duration-300 mb-3"
+              class="menu_item text-[15px] font-medium text-[#444] hover:text-[#e52e06] duration-300 {% if link.active %}active{% endif %}"
             >
-              <a href="">Item 1</a>
+              <a
+                href="{{ link.url }}"
+              >
+                {{- link.title -}}
+              </a>
             </li>
-          </ul>
-        </li>
-        <li class="menu_item text-[15px] font-medium text-[#444] hover:text-[#e52e06] duration-300 ">
-          <a href="" class=""
-            >Collection 2<i
-              class="fa-solid fa-chevron-down text-[10px] ml-1 relative top-[-2px] font-bold"
-            ></i
-          ></a>
-          <ul class="dropdown  rounded-b bg-[#ffffff] px-5 py-6 absolute min-w-[200px]">
-            <li
-              class="dropdown_item text-[15px] font-medium text-[#777] hover:text-[#e52e06] duration-300 mb-3"
-            >
-              <a href="">Item 1</a>
-            </li>
-            <li
-              class="dropdown_item text-[15px] font-medium text-[#777] hover:text-[#e52e06] duration-300 mb-3"
-            >
-              <a href="">Item 1</a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu_item text-[15px] font-medium text-[#444] hover:text-[#e52e06] duration-300">
-          <a href="" class="">Contact Us</a>
-        </li>
+          {% endif %}
+        {% endfor %}
       </ul>
     </nav>
   </div>
@@ -69,20 +54,22 @@
       <i class="fa-solid fa-magnifying-glass text-[#444] hover:text-[#e52e06] duration-300 text-[22px]"></i>
     </div>
     <div class="wishlist">
-      <a href=""> <i class="fa-regular fa-heart text-[#444] hover:text-[#e52e06] duration-300 text-[22px]"></i></a>
+      <a href="">
+        <i class="fa-regular fa-heart text-[#444] hover:text-[#e52e06] duration-300 text-[22px]"></i>
+      </a>
     </div>
     <div class="cart">
-      <a href="" class="relative">
+      <a href="/cart" class="relative">
         <i class="fa-brands fa-opencart text-[#444] hover:text-[#e52e06] duration-300 text-[22px]"></i>
-        <span
-          class="cart_count absolute bg-[#e52e06] text-white h-[19px] w-[19px] text-center rounded-full text-[13px] left-[12px] top-[5px]"
-        >
+        <span class="cart_count absolute bg-[#e52e06] text-white h-[19px] w-[19px] text-center rounded-full text-[13px] left-[12px] top-[5px]">
           0
         </span>
       </a>
     </div>
     <div class="account">
-      <a href=""> <i class="fa-regular fa-user text-[#444] hover:text-[#e52e06] duration-300 text-[22px]"></i></a>
+      <a href="/account/login">
+        <i class="fa-regular fa-user text-[#444] hover:text-[#e52e06] duration-300 text-[22px]"></i>
+      </a>
     </div>
     <div id="mobile_menu_open" class="menu md:hidden block">
       <i class="fa-solid fa-bars text-[#444] hover:text-[#e52e06]  duration-300 text-[22px]"></i>
@@ -99,68 +86,59 @@
         class="placeholder:italic border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#e52e06] focus:border-[#e52e06]"
         placeholder="Search your item"
       >
-      <button id="tigger-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button id="tigger-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
     </div>
-    <button id="close-search"><i class="fa-regular fa-circle-xmark text-3xl mt-4"></i></button>
+    <button id="close-search">
+      <i class="fa-regular fa-circle-xmark text-3xl mt-4"></i>
+    </button>
   </div>
 </div>
 
 <!-- mobile menu -->
 <div id="mobile-menu" class="mobile_menu bg-[#000000b6] h-screen w-[85%] fixed top-0 z-[100]">
-  <div class="absolute right-[-30px]"><i id="mobile_menu_close" class="fa-solid fa-xmark text-[30px]"></i></div>
+  <div class="absolute right-[-30px]">
+    <i id="mobile_menu_close" class="fa-solid fa-xmark text-[30px]"></i>
+  </div>
   <div class="w-full text-center md:text-start text-[#fff] text-[14px] py-[10px]">
     <p>We are open with limited hours and staff.</p>
   </div>
 
   <div class="search_input flex justify-center py-5">
-    <input type="text" id="search-input" class="focus:border-0 !w-[80%]" placeholder="Search your item">
-    <button id="tigger-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <input
+      type="text"
+      id="search-input"
+      class="focus:border-0 !w-[80%]"
+      placeholder="Search your item"
+    >
+    <button id="tigger-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
   </div>
   <nav class="mobilemenu h-[68%] overflow-y-auto">
     <ul class="px-6 py-4 text-white text-[18px]">
-      <li class="mb-4"><a href="">Home</a></li>
-      <li class="mb-4">
-        <span class="mobile_dropdown_trigger flex justify-between items-center">
-          <a href="">Collection</a>
-          <i class="fa-solid fa-sort-down relative top-[-05px]"></i>
-        </span>
-        <ul class="mobile_dropdown px-5 pt-4">
-          <li class="mb-3"><a href="">Item 1</a></li>
-          <li class="mb-3"><a href="">Item 2</a></li>
-        </ul>
-      </li>
-      <li class="mb-4">
-        <span class="mobile_dropdown_trigger flex justify-between items-center">
-          <a href="">Collection</a>
-          <i class="fa-solid fa-sort-down relative top-[-05px]"></i>
-        </span>
-        <ul class="mobile_dropdown px-5 pt-4">
-          <li class="mb-3"><a href="">Item 1</a></li>
-          <li class="mb-3"><a href="">Item 2</a></li>
-          <li class="mb-3"><a href="">Item 1</a></li>
-          <li class="mb-3"><a href="">Item 2</a></li>
-          <li class="mb-3"><a href="">Item 1</a></li>
-          <li class="mb-3"><a href="">Item 2</a></li>
-          <li class="mb-3"><a href="">Item 1</a></li>
-          <li class="mb-3"><a href="">Item 2</a></li>
-        </ul>
-      </li>
-      <li class="mb-4">
-        <span
-          class="
-            mobile_dropdown_trigger
-            mobile_dropdown_trigger flex justify-between items-center
-          "
-        >
-          <a href="">Collection</a>
-          <i class="fa-solid fa-sort-down relative top-[-05px]"></i>
-        </span>
-        <ul class="mobile_dropdown px-5 pt-4">
-          <li class="mb-3"><a href="">Item 1</a></li>
-          <li class="mb-3"><a href="">Item 2</a></li>
-        </ul>
-      </li>
-      <li class="mb-4"><a href="">About</a></li>
+      {% for link in linklists['main-menu'].links %}
+        {% if link.links != blank %}
+          <li class="mb-4">
+            <span class="mobile_dropdown_trigger flex justify-between items-center">
+              <a href="{{ link.url }}">{{- link.title -}}</a>
+              <i class="fa-solid fa-sort-down relative top-[-05px]"></i>
+            </span>
+            <ul class="mobile_dropdown px-5 pt-4">
+              {% for child_link in link.links %}
+                <li class="mb-3">
+                  <a href="{{child_link.url}}">{{ child_link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% else %}
+          <li class="mb-4">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
     </ul>
   </nav>
   <div class="address border-t mt-4 text-white p-5">
@@ -181,7 +159,10 @@
         >
       </li>
       <li class="">
-        <a href="tel:+"> <i class="fa-solid fa-phone-volume mr-1"></i> (08)123 456 7890</a>
+        <a href="tel:+">
+          <i class="fa-solid fa-phone-volume mr-1"></i>
+          (08)123 456 7890</a
+        >
       </li>
     </ul>
   </div>
@@ -196,6 +177,12 @@
       "id": "logo",
       "label": "Menu Logo",
       "info": "Upload your logo"
+    },
+    {
+      "type": "link_list",
+      "id": "main-menu",
+      "label": "Main Menu",
+      "default": "main-menu"
     }
   ]
 }
