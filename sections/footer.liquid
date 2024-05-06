@@ -1,107 +1,143 @@
-<footer class="px-[25px] py-[50px] bg-[#1C1B1B] flex flex-col md:flex-row gap-1 text-white">
-  <div class="w-full md:w-[30%] py-4 pl-0 pr-[40px]">
-    <a href="" class="logo">
-      <img
-        height="auto"
-        width="auto"
-        class="max-w-[150px]"
-        src="https://drou-electronics-store.myshopify.com/cdn/shop/files/logo_copy_large.png"
-        alt=""
-      >
-    </a>
-    <p class="mt-6 text-white text-[14px] text-justify">
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit iusto ea obcaecati vel magni perferendis excepturi
-      a esse, sint blanditiis. Impedit earum assumenda, porro nesciunt praesentium temporibus dolorum placeat amet!
-    </p>
-  </div>
-  <div class="w-full md:w-[20%] p-4">
-    <h3 class="menu_title font-bold text-[20px] capitalize">Information</h3>
-    <ul class="mt-6">
-      <li class="mb-2">
-        <a
-          href=""
-          class="capitalize text-[15px] hover:text-[#e52e06] duration-300 transition-all"
-          >menu 1</a
-        >
-      </li>
-      <li class="mb-2">
-        <a
-          href=""
-          class="capitalize text-[15px] hover:text-[#e52e06] duration-300 transition-all"
-          >menu 1</a
-        >
-      </li>
-      <li class="mb-2">
-        <a
-          href=""
-          class="capitalize text-[15px] hover:text-[#e52e06] duration-300 transition-all"
-          >menu 1</a
-        >
-      </li>
-      <li class="mb-2">
-        <a
-          href=""
-          class="capitalize text-[15px] hover:text-[#e52e06] duration-300 transition-all"
-          >menu 1</a
-        >
-      </li>
-    </ul>
-  </div>
-  <div class="w-full md:w-[20%] p-4">
-    <h3 class="menu_title font-bold text-[20px] capitalize">Store Policy</h3>
-    <ul class="mt-6">
-      <li class="mb-2">
-        <a
-          href=""
-          class="capitalize text-[15px] hover:text-[#e52e06] duration-300 transition-all"
-          >menu 1</a
-        >
-      </li>
-      <li class="mb-2">
-        <a
-          href=""
-          class="capitalize text-[15px] hover:text-[#e52e06] duration-300 transition-all"
-          >menu 1</a
-        >
-      </li>
-      <li class="mb-2">
-        <a
-          href=""
-          class="capitalize text-[15px] hover:text-[#e52e06] duration-300 transition-all"
-          >menu 1</a
-        >
-      </li>
-      <li class="mb-2">
-        <a
-          href=""
-          class="capitalize text-[15px] hover:text-[#e52e06] duration-300 transition-all"
-          >menu 1</a
-        >
-      </li>
-    </ul>
-  </div>
-  <div class="w-full md:w-[30%] p-4">
-    <h3 class="menu_title font-bold text-[20px]">Sign Up for Latest News</h3>
-    <form action="#" class="space-y-4 mt-6">
-      <div>
-        <input
-          placeholder="Type your email"
-          type="email"
-          id="email"
-          name="email"
-          required
-          class="mt-1 text-black block placeholder:italic w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#e52e06] focus:border-[#e52e06] h-[40px]"
-        >
-      </div>
-      <div>
-        <button
-          type="submit"
-          class="w-full font-semibold bg-[#e52e06] text-white py-2 px-4 rounded-md hover:bg-white hover:text-black duration-300 transition-all"
-        >
-          Subscribe
-        </button>
-      </div>
-    </form>
-    <p class=" italic text-[12px] mt-2">N.B: Your email is secure to us</p>
-  </div>
+<footer class="px-[25px] py-[50px] bg-[{{ section.settings.footer_bg }}] flex flex-col md:flex-row gap-1 text-[{{ section.settings.footer_text }}] ">
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'info' %}
+        <div class="w-full md:w-[30%] py-4 pl-0 pr-[40px]">
+          <a href="/" class="logo">
+            {% if block.settings.logo %}
+              <img
+                height="auto"
+                width="auto"
+                class="max-w-[150px]"
+                src="{{block.settings.logo | img_url: 'medium'}}"
+                alt="logo"
+              >
+            {% else %}
+              <h2 class="text_logo text-5xl font-medium">{{ shop.name }}</h2>
+            {% endif %}
+          </a>
+          <p class="mt-6 text-[14px] text-justify">
+            {{ block.settings.about_info }}
+          </p>
+        </div>
+      {% when 'menu' %}
+        <div class="w-full md:w-[20%] p-4">
+          <h3 class="menu_title font-bold text-[20px] capitalize">
+            {{ block.settings.footer_menu.title }}
+          </h3>
+          <ul class="mt-6">
+            {% for item in block.settings.footer_menu.links %}
+              <li class="mb-2 hover:ml-1 duration-300">
+                <a
+                  href="{{item.url}}"
+                  class="capitalize text-[14px] text-semibold hover:text-[#e52e06] duration-300 transition-all"
+                >
+                  {{- item.title -}}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% when 'newsletter' %}
+        <div class="w-full md:w-[30%] p-4">
+          <h3 class="menu_title font-bold text-[20px]">{{ block.settings.heading }}</h3>
+          {% form 'customer' %}
+            <div class="space-y-4 mt-6">
+              <div>
+                <input
+                  placeholder="Type your email"
+                  type="email"
+                  id="email"
+                  name="contact[email]"
+                  required
+                  class="mt-1 text-black block placeholder:italic w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#e52e06] focus:border-[#e52e06] h-[40px]"
+                >
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  class="w-full font-semibold bg-[#e52e06] text-white py-2 px-4 rounded-md hover:bg-white hover:text-black duration-300 transition-all"
+                >
+                  Subscribe
+                </button>
+              </div>
+            </div>
+          {% endform %}
+          <p class=" italic text-[12px] mt-2">{{ block.settings.details }}</p>
+        </div>
+    {% endcase %}
+  {% endfor %}
 </footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Footer Item"
+    },
+    {
+      "type": "color",
+      "id": "footer_bg",
+      "label": "Background color",
+      "default": "#1C1B1B"
+    },
+    {
+      "type": "color",
+      "id": "footer_text",
+      "label": "Text color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info",
+      "name": "About Us",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Footer Logo",
+          "info": "Upload your logo"
+        },
+        {
+          "type": "text",
+          "id": "about_info",
+          "label": "Write about store "
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Select Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "footer_menu",
+          "label": "Navigation",
+          "default": "footer"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Sign Up for Latest News"
+        },
+        {
+          "type": "textarea",
+          "id": "details",
+          "label": "Details",
+          "default": "N.B: Your email is secure to us"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
