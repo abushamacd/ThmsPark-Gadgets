@@ -17,7 +17,7 @@
   <div class="w-8/12 hidden md:block ">
     <nav class="mainmenu">
       <ul class="flex justify-center gap-5 relative">
-        {% for link in linklists['main-menu'].links %}
+        {% for link in section.settings.main_menu.links %}
           {% if link.links != blank %}
             <li class="menu_item text-[15px] font-medium text-[#444] hover:text-[#e52e06] duration-300 {% if link.active %}active {% endif %} {% if link.child_active %}child-active{% endif %}">
               <a
@@ -126,7 +126,7 @@
   </div>
   <nav class="mobilemenu h-[68%] overflow-y-auto">
     <ul class="px-6 py-4 text-white text-[18px]">
-      {% for link in linklists['main-menu'].links %}
+      {% for link in section.settings.main_menu.links %}
         {% if link.links != blank %}
           <li class="mb-4">
             <span class="mobile_dropdown_trigger flex justify-between items-center">
@@ -188,7 +188,7 @@
     },
     {
       "type": "link_list",
-      "id": "main-menu",
+      "id": "main_menu",
       "label": "Main Menu",
       "default": "main-menu"
     }

@@ -1,8 +1,15 @@
-<div class="ab px-[40px] border-b md:flex items-center hidden bg-[{{ section.settings.bg_color }}]">
-  <div class="md:w-1/2 text-center md:text-start text-[14px] py-[10px]">
-    <p class="text-[{{ section.settings.text_color }}] hover:text-[{{ section.settings.text_hover_color }}] transition-all duration-500">
-      {{ section.settings.ab_text }}
-    </p>
+<div class=" px-[40px] border-b md:flex items-center hidden bg-[{{ section.settings.bg_color }}]">
+  <div class="ab_carousel md:w-1/2 text-center md:text-start text-[14px] py-[10px]">
+    {% comment %}
+      <p class="text-[{{ section.settings.text_color }}] hover:text-[{{ section.settings.text_hover_color }}] transition-all duration-500">
+        {{ section.settings.ab_text }}
+      </p>
+    {% endcomment %}
+    {% for block in section.blocks %}
+      <p class="text-[{{ section.settings.text_color }}] hover:text-[{{ section.settings.text_hover_color }}] transition-all duration-500">
+        {{ block.settings.ab_text }}
+      </p>
+    {% endfor %}
   </div>
   <div class="w-1/2 text-[13px] font-medium ab_action">
     <ul class="flex gap-3 justify-end relative">
@@ -42,13 +49,6 @@
   "settings": [
     {
       "type": "text",
-      "id": "ab_text",
-      "label": "Announcement bar text",
-      "info": "Type your announcement",
-      "default": "We are open with limited hours and staff."
-    },
-    {
-      "type": "text",
       "id": "phone",
       "label": "Store Contact No.",
       "info": "Type your store contact no.",
@@ -81,6 +81,21 @@
       "label": "Backgroud Color",
       "info": "Pick backgroud color (Default - #ffffff)",
       "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "ab_text",
+          "label": "Announcement bar text",
+          "info": "Type your announcement",
+          "default": "We are open with limited hours and staff."
+        }
+      ]
     }
   ]
 }

@@ -1,5 +1,3 @@
-// $(".ab_carousel").slick({ dots: true });
-
 // search overlay
 document.addEventListener("DOMContentLoaded", () => {
   const qs = (selector) => document.querySelector(selector);
@@ -70,3 +68,4 @@ const topFunction = () => {
 
 // banner
 $(".banner_carousel").slick({ dots: true, arrows: false, autoplay: true });
+$(".ab_carousel").slick({ arrows: false, autoplay: true, });
