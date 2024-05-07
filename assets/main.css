@@ -163,7 +163,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 0px 25px;
+  padding: 0px 25px !important;
   z-index: 99;
   transition: padding 0.3s;
 }
@@ -203,6 +203,14 @@
 
 .banner .slick-dots {
   bottom: 10px;
+}
+
+.banner.slick-dotted.slick-slider {
+  margin-bottom: 0px;
+}
+
+.banner_button a {
+  padding: 12px 50px;
 }
 
 /* responsive */
