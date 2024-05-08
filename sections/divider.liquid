@@ -1,0 +1,20 @@
+<div class="h-[{{ section.settings.space  }}px]"></div>
+
+{% schema %}
+{
+  "name": "Divider",
+  "settings": [
+    {
+      "type": "number",
+      "id": "space",
+      "label": "Diverder Gap",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "Divider"
+    }
+  ]
+}
+{% endschema %}
